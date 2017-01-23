@@ -3,7 +3,7 @@
 *   Descrição: Classe para operações em servidor e base de dados RADIUS
 *   Autor: Thiago R. Gham
 *   Data: 02/12/2016
-*   Versão 1.1
+*   Versão 1.0
     Exemplo de Uso:
         $FreeRadius = new FreeRadius();
         
