@@ -1,7 +1,7 @@
 <?php
 /*
 *   Descrição: Classe para operações em servidor e base de dados RADIUS
-*   Autor: teste
+*   Autor: Thiago R. Gham
 *   Data: 12-02-2016 
 *   Versão 1.0
     Exemplo de Uso:
