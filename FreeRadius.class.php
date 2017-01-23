@@ -347,10 +347,10 @@ class FreeRadius {
         return $result;
     }
     /**
-    * Descrição: Executa Query verifica erro
-    * @param string query
-    * @return array Resultados
-    */
+     * [AdicionaSessionTerminate description]
+     * @param string $username [description]
+     * @param string $value    [description]
+     */
     public function AdicionaSessionTerminate($username = '', $value = ''){
 
         if(empty($username)) {
@@ -364,12 +364,11 @@ class FreeRadius {
         }       
         return $result;
     }
-
     /**
-    * Descrição: Alteração de senha do Usuário
-    * @param string query
-    * @return array Resultados
-    */
+     * [AlteraSenha description]
+     * @param string $username [description]
+     * @param string $senha    [description]
+     */
     public function AlteraSenha($username = '', $senha = ''){
         
         if(empty($username)){
@@ -382,12 +381,12 @@ class FreeRadius {
         }
         return $result;
     }
-
     /**
-    * Descrição: Executa Query verifica erro
-    * @param string query
-    * @return array Resultados
-    */
+     * [AdicionaRadgroupReply description]
+     * @param string $groupname     [description]
+     * @param string $groupname_old [description]
+     * @param string $value         [description]
+     */
     public function AdicionaRadgroupReply($groupname = '', $groupname_old = '', $value = ''){
         
         if(empty($groupname)){
@@ -404,12 +403,12 @@ class FreeRadius {
 
         return $result;
     }
-
     /**
-    * Descrição: Executa Query verifica erro
-    * @param string query
-    * @return array Resultados
-    */
+     * [AdicionaRadroupCheck description]
+     * @param string $groupname     [description]
+     * @param string $groupname_old [description]
+     * @param string $value         [description]
+     */
     public function AdicionaRadroupCheck($groupname = '', $groupname_old = '', $value = ''){
         
         if(empty($groupname)){
@@ -448,11 +447,10 @@ class FreeRadius {
         return $result;
     }
     /**
-    * Descrição: Executa Query verifica erro
-    *             Framed-Protocol    ==      PPP qunado não for HOTSPOT
-    * @param string query
-    * @return array Resultados
-    */
+     * [AdicionaSHAPassword description]
+     * @param string $username [description]
+     * @param string $senha    [description]
+     */
     public function AdicionaSHAPassword($username = '', $senha = ''){
         
         if(empty($username)){
@@ -470,11 +468,10 @@ class FreeRadius {
         return $result;
     }
     /**
-    * Descrição: Executa Query verifica erro
-    *             Framed-Protocol    ==      PPP qunado não for HOTSPOT
-    * @param string query
-    * @return array Resultados
-    */
+     * [AdicionaRadCheck description]
+     * @param string $username [description]
+     * @param string $senha    [description]
+     */
     public function AdicionaRadCheck($username = '', $senha = ''){
         
         if(empty($username)){
@@ -487,19 +484,13 @@ class FreeRadius {
             $result = $this->UpdateDados('radcheck', "value = '$senha'", "username = '$username' AND attribute = 'SHA-Password'");
         }
 
-        /*
-        *#####################   ATENÇÃO ###################################
-        *   RETIRAR ISSO É SOMENTE PROVISORIO
-         */
-        //$this->AdicionaSimultaneousUse($username, 1);
-
         return $result;
     }
-
     /**
-     * Descrição: Executa Query verifica erro
-     * @param string query
-     * @return array Resultados
+     * [AdicionaRadUserGroup description]
+     * @param string $username  [description]
+     * @param string $groupname [description]
+     * @param string $priority  [description]
      */
     public function AdicionaRadUserGroup($username = '', $groupname = '', $priority = '1'){
         
@@ -514,11 +505,10 @@ class FreeRadius {
         }
         return $result;
     }
-
     /**
-     * Descrição: Executa Query verifica erro 
-     * @param string query
-     * @return array Resultados
+     * [AdicionaSimultaneousUse description]
+     * @param string $username [description]
+     * @param string $value    [description]
      */
     public function AdicionaSimultaneousUse($username = '', $value = '1'){
         
@@ -533,11 +523,10 @@ class FreeRadius {
         }
         return $result;
     }
-
     /**
-     * [AdicionaFramedProtocol description] INSERT into radcheck VALUES ('usuario','Framed-Protocol','PPP','==');
+     * [AdicionaFramedProtocol description]
      * @param string $username [description]
-     * @param string $protocol [description]
+     * @param string $value    [description]
      */
     public function AdicionaFramedProtocol($username = '', $value = 'PPP'){
         
@@ -552,7 +541,6 @@ class FreeRadius {
         }
         return $result;
     }
-
     /**
      * [RemoveFramedProtocol description]
      * @param string $username [description]
@@ -568,9 +556,9 @@ class FreeRadius {
         return $result;
     }
     /**
-     * Descrição: Adiciona
-     * @param string query   
-     * @return array Resultados
+     * [BloquearUsuario description]
+     * @param string $username [description]
+     * @param string $value    [description]
      */
     public function BloquearUsuario($username = '', $value = 'bloqueio'){ 
         
@@ -588,11 +576,10 @@ class FreeRadius {
 
         return $result;
     }
-
     /**
-     * Descrição: Adiciona
-     * @param string query
-     * @return array Resultados
+     * [LiberarUsuario description]
+     * @param string $username  [description]
+     * @param string $groupname [description]
      */
     public function LiberarUsuario($username = '', $groupname = ''){
 
@@ -606,14 +593,11 @@ class FreeRadius {
             $this->AdicionaRadUserGroup($username, $groupname);
         }
 
-
         return $result;
     }
-
     /**
-     * Descrição: Adiciona
-     * @param string query
-     * @return array Resultados
+     * [BloquearUsuarioHotspot description]
+     * @param string $username [description]
      */
     public function BloquearUsuarioHotspot($username = ''){ 
         
@@ -628,11 +612,9 @@ class FreeRadius {
         }
         return $result;
     }
-
     /**
-     * Descrição: Adiciona
-     * @param string query
-     * @return array Resultados
+     * [LiberarUsuarioHotspot description]
+     * @param string $username [description]
      */
     public function LiberarUsuarioHotspot($username = ''){ 
         
@@ -644,23 +626,19 @@ class FreeRadius {
 
         return $result;
     }
-
     /**
-     * Descrição: Insere ou atualiza IP fixo para o usuario radius
-     * @param string query: nome do usuario e IP 
-     * @return array Resultados
-     * Atualização: 08-06-2016 thiago r.
+     * [AtualizaIPFixo description]
+     * @param string $username [description]
+     * @param string $ip       [description]
      */
     public function AtualizaIPFixo($username = '', $ip = ''){ 
 
         if(empty($username) or empty($ip)) {
             $this->erro     = true;
-            $this->mensagem = utf8_encode("O Usuario e IP são obrigatórios para Operação AtualizaIPFixo");
+            $this->mensagem = utf8_encode("O Usuário e IP são obrigatórios.");
             return 0;
         }
 
-        $attribute = "Framed-IP-Address";
-        $op        = ":=";
         $result    = $this->ExecutaQuery(sprintf("SELECT username FROM radreply WHERE  username <> '%s' AND attribute = 'Framed-IP-Address' AND value = '%s'", $username, $ip));
         if($result['nr_registros'] == 0){
             $result = $this->ExecutaQuery(sprintf("SELECT username FROM radreply WHERE username = '%s' AND attribute = 'Framed-IP-Address'", $username));
@@ -678,10 +656,8 @@ class FreeRadius {
         return $result;
     }
     /**
-     * Descrição: Insere ou atualiza IP fixo para o usuario radius
-     * @param string query: nome do usuario e IP 
-     * @return array Resultados
-     * Atualização: 08-06-2016 thiago r.
+     * [RemoveIPFixo description]
+     * @param string $username [description]
      */
     public function RemoveIPFixo($username = ''){
         if(empty($username)) {
@@ -692,5 +668,4 @@ class FreeRadius {
         $result = $this->DeleteDados('radreply', "username = '$username' AND attribute = 'Framed-IP-Address'");
         return $result;
     }
-    
 }
