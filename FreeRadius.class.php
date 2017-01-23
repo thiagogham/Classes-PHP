@@ -2,7 +2,7 @@
 /*
 *   Descrição: Classe para operações em servidor e base de dados RADIUS
 *   Autor: Thiago R. Gham
-*   Data: 12-02-2016 
+*   Data: 02/12/2016
 *   Versão 1.0
     Exemplo de Uso:
         $teste = new FreeRadius();
@@ -158,25 +158,23 @@ class FreeRadius {
             return $this->mensagem;
         }
     }
-
     /**
-    * Descrição: Seleciona LInha Tabela
-    * @param string tabela, string where
-    * @return array Resultados
-    */
+     * [SelectDados description]
+     * @param [type] $table  [description]
+     * @param string $campos [description]
+     * @param string $where  [description]
+     */
     public function SelectDados($table, $campos = '*', $where = 'true') {
         $result     = $this->ExecutaQuery(sprintf('SELECT %s FROM %s WHERE %s', $campos, $table, $where));
         $registros  = $result['nr_registros'];
         $result     = $result['registros'];
         return array('nr_registros' => $registros, 'registros' => $result);
     }
-
     /**
-     * Update a row.
-     * @param str table
-     * @param str values
-     * @param str where
-     * @return bool
+     * [InsertDados description]
+     * @param [type] $table  [description]
+     * @param [type] $campos [description]
+     * @param [type] $value  [description]
      */
     public function InsertDados($table, $campos, $value) {
 
@@ -202,11 +200,10 @@ class FreeRadius {
         }
     }
     /**
-     * Update a row.
-     * @param str table
-     * @param str values
-     * @param str where
-     * @return bool
+     * [UpdateDados description]
+     * @param [type] $table  [description]
+     * @param [type] $values [description]
+     * @param string $where  [description]
      */
     public function UpdateDados($table, $values, $where = 'TRUE') {
 
@@ -231,12 +228,11 @@ class FreeRadius {
             return $this->mensagem;
         }
     }
-
     /**
-    * Get the columns in a table.
-    * @param str table
-    * @return resource A resultset resource
-    */
+     * [DeleteDados description]
+     * @param [type] $table [description]
+     * @param string $where [description]
+     */
     public function DeleteDados($table, $where = 'TRUE') {
  
         try{
@@ -260,12 +256,10 @@ class FreeRadius {
             return $this->mensagem;
         }
     }
-
     /**
-    * Descrição: Executa Query verifica erro
-    * @param string query
-    * @return array Resultados
-    */
+     * [RemoveSessao description]
+     * @param string $username [description]
+     */
     public function RemoveSessao($username = ''){
 
         if(empty($username)){
@@ -284,12 +278,10 @@ class FreeRadius {
         $result = $this->DeleteDados('radacct', $where);
         return $result;
     } 
- 
     /**
-    * Descrição: Remove Usuario RADIUS
-    * @param string query
-    * @return array Resultados
-    */
+     * [RemoveUsuario description]
+     * @param string $username [description]
+     */
     public function RemoveUsuario($username = ''){
 
         if(empty($username)){
@@ -304,7 +296,6 @@ class FreeRadius {
         
         return $result;
     } 
-     
     /**
      * [AdicionaCallingStationID Adiciona regra do MAC com Usuário]
      * @param string $username [description]
@@ -323,11 +314,9 @@ class FreeRadius {
         }       
         return $result; 
     }
-
     /**
      * [RemoveCallingStationID description]
      * @param string $username [description]
-     * @param string $value    [description]
      */
     public function RemoveCallingStationID($username = ''){
 
@@ -339,12 +328,11 @@ class FreeRadius {
 
         return $result;
     }
-
     /**
-    * Descrição: Adiciona regra de tempo de acesso Diário para usuario hotspot
-    * @param string username, int value (Numero de Horas de ser em SEGUNDOS)
-    * @return int
-    */
+     * [AdicionaMaxDailySession description]
+     * @param string $username [description]
+     * @param string $value    [description]
+     */
     public function AdicionaMaxDailySession($username = '', $value = '0'){
 
         if(empty($username)) {
