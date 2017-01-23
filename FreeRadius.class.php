@@ -5,10 +5,19 @@
 *   Data: 02/12/2016
 *   Versão 1.0
     Exemplo de Uso:
-        $teste = new FreeRadius();
-        $dados = $teste->UpdateDados('trafego_usuarios','acctinputoctets = 500, acctoutputoctets = 200',"username = 'xuxu'");
-        $dados = $teste->SelectDados('trafego_usuarios','*',"username = 'xuxu'");
-        $teste->Fechar();
+        $FreeRadius = new FreeRadius();
+        
+        $AdicionaRadCheck = $FreeRadius->AdicionaRadCheck($username, sha1($senha));
+        if($FreeRadius->RetornouErro()){
+            $AdicionaRadCheck = $FreeRadius->RetornaMensagem();
+        }
+
+        $AdicionaFramedProtocol  = $FreeRadius->AdicionaFramedProtocol($username, 'PPP');
+        if($FreeRadius->RetornouErro()){
+            $AdicionaFramedProtocol = $FreeRadius->RetornaMensagem();
+        }   
+
+        $FreeRadius->Fechar();
 */
 
 class FreeRadius {
