@@ -3,84 +3,29 @@
  * Descrição: Classe para operações em servidor PRTG
  * Autor: Thiago R. Gham
  * Data: 05/04/2015
- * Versão: 1.0
+ * Versão: 1.1
  */
 class PRTG{
-	/**
-	 * [$debug description]
-	 * @var boolean
-	 */
+	
 	public  $debug 				= false;
-	/**
-	 * [$url description]
-	 * @var string
-	 */
-	private $url 			 	= 'http://localhost';
-	/**
-	 * [$table description]
-	 * @var string
-	 */
+	private $url 			 	= 'http://localhost/';
 	private $table 			 	= 'api/table.';
-	/**
-	 * [$graph description]
-	 * @var string
-	 */
 	private $graph 			 	= 'chart.png';
-	/**
-	 * [$duplicateobject description]
-	 * @var string
-	 */
 	private $duplicateobject 	= 'api/duplicateobject.htm';
-	/**
-	 * [$setobjectproperty description]
-	 * @var string
-	 */
 	private $setobjectproperty 	= 'api/setobjectproperty.htm';
-	/**
-	 * [$pause description]
-	 * @var string
-	 */
 	private $pause 			 	= 'api/pause.htm';
-	/**
-	 * [$discovernow description]
-	 * @var string
-	 */
 	private $discovernow     	= 'api/discovernow.htm';
-	/**
-	 * [$delete description]
-	 * @var string
-	 */
 	private $delete 			= 'api/deleteobject.htm';
-	/**
-	 * [$sensorstats description]
-	 * @var string
-	 */
+	private $moveobject 		= 'api/moveobject.htm';
 	private $sensorstats		= 'controls/sensorstats.htm';
-	/**
-	 * [$username description]
-	 * @var string
-	 */
-	private $username		 	= 'prtgapi';
-	/**
-	 * [$password description]
-	 * @var string
-	 */
-	private $password 		 	= 'prtgapi';
-	/**
-	 * [$dados description]
-	 * @var string
-	 */
+
+	private $username		 	= 'username';
+	private $password 		 	= 'password';
+ 
 	private $dados	    	 	= '';
-	/**
-	 * [$content description]
-	 * @var string
-	 */
+
 	public $content 		 	= 'sensors';
-	/**
-	 * [$columns description]
-	 * @var string
-	 */
-	public $columns 		 	= 'objid,name,type,group,device,host,sensor,status,downtimetime,lastvalue,lastcheck,message,location,downtimesince';
+	public $columns 		 	= 'objid,name,type,group,device,host,sensor,status,downtimetime,lastvalue,lastcheck,message,location,downtimesince,dependency,parent,parentid';
 	/**
 	 * [$sortby description]
 	 * @var string
@@ -111,24 +56,11 @@ class PRTG{
 	 */	
 	public $type 				= 'json';
 	/**
-	 * [$FilterWarning description]
-	 * @var integer
+	 * 
 	 */
 	public static $FilterWarning 	= 4;
-	/**
-	 * [$FilterDown description]
-	 * @var integer
-	 */
 	public static $FilterDown		= 5;
-	/**
-	 * [$FilterUnusual description]
-	 * @var integer
-	 */
 	public static $FilterUnusual	= 10;
-	/**
-	 * [$SSHSenha description]
-	 * @var string
-	 */
 	public static $SSHSenha 		= 'linuxloginpassword';
 	/**
 	 * [__construct description]
@@ -335,14 +267,16 @@ class PRTG{
 			$parametros = array('id' => $id, 'name' => $key, 'value' => $value);
 			$altera_url = $this->GetUrl($this->setobjectproperty, $parametros);
 			$retorno    = $this->GetFile( $altera_url );
+			if($key == 'targetid'){
+				$altera_url = $this->GetUrl($this->moveobject, $parametros);
+				$retorno    = $this->GetFile( $altera_url );
+			}
 		}
-
 		if(empty($retorno)){
 			return FALSE;
 		}
 		return TRUE;
 	}
-	
 	/**
 	 * [GetGraph description]
 	 * @param integer $id      [The object ID of the desired graph object (usually the ID of a sensor object)]
@@ -350,7 +284,25 @@ class PRTG{
 	 * @param integer $width   [Width of the image in pixels]
 	 * @param integer $height  [Height of the image in pixels]
 	 */
-	public function GetGraph($retorno = false, $id = 1, $graphid = 1, $width = 640, $height){
+	public function GetImgGraph($id, $graphid, $width, $height){
+
+		$parametros = array('type'  	=> 'graph',
+							'id' 		=> !$id ? 0 : intval($id),
+							'graphid' 	=> !$graphid ? 1 : intval($graphid),
+							'width' 	=> !$width ? 640 : intval($width),
+							'height' 	=> !$height ? intval((!$width ? 640 : intval($width)) / 1.77777) : intval($height) );
+		
+		return $this->GetFile( $this->GetUrl( $this->graph, $parametros ) );
+		
+	}
+	/**
+	 * [GetGraph description]
+	 * @param integer $id      [The object ID of the desired graph object (usually the ID of a sensor object)]
+	 * @param integer $graphid [Selects graph number (0=live, 1=last 48 hours, 2=30 days, 3=365 days)]
+	 * @param integer $width   [Width of the image in pixels]
+	 * @param integer $height  [Height of the image in pixels]
+	 */
+	public function GetGraph($retorno = false, $id = 0, $graphid = 1, $width = 640, $height){
 
 		$parametros = array('type'  	=> 'graph',
 							'id' 		=> $id,
