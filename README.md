@@ -5,3 +5,4 @@
   * Prosody.class.php    - API para comunicação com servidor de Chat.
   * Plesk.class.php      - API para comunicação com software de Hospedagem.
   * SSH.class.php        - API para comunicação via SSH utilizando PHP.
+  * Huggy.class.php      - API para consumir a API da Huggy.
